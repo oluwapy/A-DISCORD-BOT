@@ -5,14 +5,15 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.application import MIMEApplication
 from email.mime.text import MIMEText
 import warnings
+import os
 
 
 
 client = discord.Client()
 guild = discord.Guild
 
-my_mail = "oluwapythonpy@gmail.com"
-password = "xcrggkccpkchojim"
+my_mail = os.environ.get("EMAIL_SENDER")
+password = os.environ.get("PASSWORD")
 
 @client.event
 async def on_message(message):
@@ -50,8 +51,8 @@ async def on_message(message):
             msg = MIMEMultipart()
             body_part = MIMEText(f"Here is the file for {name_of_channel} channel's links", 'plain')
             msg['Subject'] = f"{name_of_channel} CHANNEL'S LINKS IN CSV FILE"
-            msg['From'] = "oluwapythonpy@gmail.com"
-            msg['To'] = "oluwapythonpy@gmail.com"
+            msg['From'] = os.environ.get("EMAIL_SENDER")
+            msg['To'] = os.environ.get("EMAIL_RECEIVER")
             # Add body to email
             msg.attach(body_part)
                         # open and read the CSV file in binary
@@ -69,12 +70,4 @@ async def on_message(message):
                 connection.quit()
 
 
-client.run("OTg4MjI0OTU1NTU0NjA3MTI2.Grpz5-.RLJtr6X_Jwwjms3eTLLi4PS7A6ksVqwCiHFooc")
-# C:\Users\oluJ\PycharmProjects\Day 34\Discord bot
-
-# df2 = pd.DataFrame({'First Name': ['Kumar'],
-#                     'Last Name' : ['Ram'],
-#                     'Country' : ['India']})
-#
-# df = pd.concat([df, df2], ignore_index = True, axis = 0)
-
+client.run(os.environ.get("SECRET_KEY"))
