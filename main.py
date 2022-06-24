@@ -8,12 +8,12 @@ import warnings
 import os
 
 
-
 client = discord.Client()
 guild = discord.Guild
 
 my_mail = os.environ.get("EMAIL_SENDER")
 password = os.environ.get("PASSWORD")
+
 
 @client.event
 async def on_message(message):
@@ -55,7 +55,7 @@ async def on_message(message):
             msg['To'] = os.environ.get("EMAIL_RECEIVER")
             # Add body to email
             msg.attach(body_part)
-                        # open and read the CSV file in binary
+            # open and read the CSV file in binary
             with open(file="data.csv", mode="rb") as file:
                 # Attach the file with filename to the email
                 msg.attach(MIMEApplication(file.read(), Name="Links_in_csv.csv"))
